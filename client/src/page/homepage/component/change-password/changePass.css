@@ -1,0 +1,26 @@
+.changePass{
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    margin-top: 10px;
+    border-radius: 3px;
+    height: 40px;
+    padding-left: 15px;
+}
+.changePass:hover{
+    border: 1px solid rgb(82, 163, 255);
+}
+.footerButton{
+    height: 30px;
+    background-color: white;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+.footerButton:hover{
+    border: 1px solid rgb(82, 163, 255);
+    color: rgb(82, 163, 255);
+}
+.checkPassCss{
+    margin-bottom: 0;
+    font-size: 11px;
+    color: rgb(219, 7, 7);
+}

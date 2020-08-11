@@ -1,0 +1,10 @@
+.bread-crumb-s{
+    width: 1100px;
+    margin: 0 auto !important;
+}
+@media (max-width:1200px){
+    .bread-crumb-s{
+        width: 100%;
+        padding-left: 20px !important;
+    }
+}
