@@ -10,7 +10,7 @@ import Cooperation from '../page/sign/cooperation/cooperation'
 import CooperationDetail from '../page/sign/cooperation-detail/cooperation-detail'
 import CooperationTable from '../page/sign/cooperation-table/cooperation-table'
 import CooperationEdit from '../page/sign/cooperation-table/form/cooperation-edit'
-import homePage from '../page/HomePage'
+import Notify from '../page/Notify'
 const routes = [
     {
         path: "/login",
@@ -23,7 +23,7 @@ const routes = [
             {
                 path: "/",
                 exact: true,
-                component: homePage,
+                component: Notify,
             }, {
                 path: "/admin/manager-faculty",
                 exact: true,

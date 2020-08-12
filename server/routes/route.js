@@ -70,5 +70,5 @@ module.exports = (app) => {
     app.get('/api/cooperation/main/all', [authJwt.verifyToken], cooperation_detail.readAllMainCooperation)
     app.get('/api/cooperation/main/:id', [authJwt.verifyToken], cooperation_detail.readMainCooperation)
     // notify
-    app.get('/api/notify/cooperation', notify.notifyCooperationExpire)
+    app.get('/api/notify/cooperation', [authJwt.verifyToken], notify.notifyCooperationExpire)
 }
