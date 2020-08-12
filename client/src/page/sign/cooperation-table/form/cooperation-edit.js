@@ -17,7 +17,6 @@ const CooperationEdit = (props) => {
     const [signMember, setSignMember] = useState([])
 
     const [defaultMain, setDefaultMain] = useState([])
-    const [defaultPartner, setDefaultPartner] = useState([])
     const [defaultMS, setDefaultMS] = useState([])
     const [defaultPS, setDefaultPS] = useState([])
 
@@ -30,7 +29,6 @@ const CooperationEdit = (props) => {
             if (data.success) {
                 setCooperation(data.message)
                 setDefaultMain(data.message.main_cooperations[0])
-                setDefaultPartner(data.message.partner)
                 setDefaultPS(data.message.user_partners)
                 setDefaultMS(data.message.member_signs)
             } else {
@@ -92,17 +90,18 @@ const CooperationEdit = (props) => {
         props.form.validateFields(async (err, values) => {
             if (!err) {
                 setLoading(true)
-                const {success} = await updateCooperation(id, values)
+                // const {success} = await updateCooperation(id, values)
+                console.log(values)
                 setLoading(false)
-                if (success) {
-                    notification['success']({
-                        message: 'Cập nhật thành công!'
-                    })
-                } else {
-                    notification['error']({
-                        message: 'Cập nhật thất bại!'
-                    })
-                }
+                // if (success) {
+                //     notification['success']({
+                //         message: 'Cập nhật thành công!'
+                //     })
+                // } else {
+                //     notification['error']({
+                //         message: 'Cập nhật thất bại!'
+                //     })
+                // }
             }
         })
     }
@@ -137,7 +136,7 @@ const CooperationEdit = (props) => {
                                 <div className="border-bottom-profile-s">
                                     <label className="label-profile-s"> Đối tác </label>
                                     {getFieldDecorator('partnerId', {
-                                        initialValue: defaultPartner.name,
+                                        initialValue: cooperation.partnerId,
                                         rules: [{
                                             required: true,
                                             message: 'Chưa chọn đối tác!'
@@ -282,7 +281,7 @@ const CooperationEdit = (props) => {
                                     {getFieldDecorator('renew', {
                                         initialValue: cooperation.renew ? 1 : 0,
                                     })(
-                                        <Radio.Group defaultValue={null} name="radiogroup">
+                                        <Radio.Group name="radiogroup">
                                             <Radio value={1} style={{ marginLeft: '5px'}} className="radio_information"> có </Radio>
                                             <Radio value={0} className="radio_information"> không </Radio>
                                         </Radio.Group>

@@ -297,11 +297,8 @@ exports.readCooperation = async (req, res) => {
             where: {
                 id: req.params.id
             },
-            attributes: ['id', 'note', 'renew', 'contract_value', 'sign_date', 'expiry_date', 'file'],
+            attributes: ['id', 'note', 'renew', 'contract_value', 'sign_date', 'expiry_date', 'file', 'partnerId'],
             include: [{
-                model: Partner,
-                attributes: ['name']
-            }, {
                 model: Faculty,
                 attributes: ['name']
             }, {

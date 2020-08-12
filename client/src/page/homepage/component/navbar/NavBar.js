@@ -5,8 +5,8 @@ import { logout, checkAuth, getUser } from '../../../../api/auth/auth'
 
 const NavBar = () => {
 
-    const roles = getUser().then((value) => {
-        if (checkAuth()) {
+    const roles = getUser().then(async (value) => {
+        if (await checkAuth()) {
             var roleAdmin = document.getElementById('admin')
             if (value.role === 'admin') {
                 roleAdmin.style.display = 'block'
