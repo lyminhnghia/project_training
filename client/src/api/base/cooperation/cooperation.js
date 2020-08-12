@@ -8,6 +8,21 @@ export const addCooperation = (data) => {
     })
 }
 
+export const updateCooperation = (id, data) => {
+    return createAuthApiRequest({
+        url: `/api/cooperation/${id}`,
+        method: 'put',
+        data: data
+    })
+}
+
+export const getCooperation = (id) => {
+    return createAuthApiRequest({
+        url: `/api/cooperation/${id}`,
+        method: 'get'
+    })
+}
+
 export const getAllPartnerCo = () => {
     return createAuthApiRequest({
         url: `/api/cooperation/partner/all`,

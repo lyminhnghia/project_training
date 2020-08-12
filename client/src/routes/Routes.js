@@ -9,7 +9,8 @@ import MemberSignTable from '../page/general/manager/member-sign/MemberSignTable
 import Cooperation from '../page/sign/cooperation/cooperation'
 import CooperationDetail from '../page/sign/cooperation-detail/cooperation-detail'
 import CooperationTable from '../page/sign/cooperation-table/cooperation-table'
-import test from '../page/admin/test'
+import CooperationEdit from '../page/sign/cooperation-table/form/cooperation-edit'
+import homePage from '../page/HomePage'
 const routes = [
     {
         path: "/login",
@@ -22,7 +23,7 @@ const routes = [
             {
                 path: "/",
                 exact: true,
-                component: test,
+                component: homePage,
             }, {
                 path: "/admin/manager-faculty",
                 exact: true,
@@ -60,6 +61,10 @@ const routes = [
                 path: "/general/cooperation-table",
                 exact: true,
                 component: CooperationTable
+            }, {
+                path: "/general/cooperation-edit/:id",
+                exact: true,
+                component: CooperationEdit
             }
         ]
     },

@@ -1,0 +1,192 @@
+.para-profile-member{
+    width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    /* box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 6px 0 rgba(0, 0, 0, 0.19); */
+}
+.buttonProfile{
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 6px 0 rgba(0, 0, 0, 0.19) !important;
+    border: none !important;
+    background-color: #4f8db3 !important;
+    color: white !important;
+    font-weight: 500 !important;
+    border-radius: 20px !important;
+
+}
+.ant-form-item-control{
+    line-height: normal !important;
+}
+.buttonProfile:hover{
+    background-color: #2c3e50 !important;
+}
+.DIVprofile{
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 15px;
+}
+.title-profile-s{
+    margin-top: 20px;
+    width: 200px;
+    background: #4f8db3;
+    border: none;
+    box-shadow: -4px -2px 6px -3px rgba(0, 0, 0, 0.2);
+    height: 35px;
+    position: relative;
+    padding-left: 15px;
+    font-size: 18px;
+    color: rgb(255, 255, 255);
+    line-height: 35px;
+    font-weight: 500;
+}
+.title-profile-s::before{
+    background-color: #4f8db3;
+    box-shadow: 0 0 10px -1px rgba(0, 0, 0, 0.2);
+    content: '';
+    height: 36px; 
+    width: 51px;
+    overflow: hidden;
+    position: absolute;
+    right: -31px;  
+    top: 38%;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    z-index: -1;
+}
+.body-border-profile-s{
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2), 0 1px 6px 0 rgba(0, 0, 0, 0.19) !important;
+    background: white;
+    padding: 15px;
+    box-sizing: border-box;
+    padding: 20px 15px 20px 15px;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+}
+.border-bottom-profile-s{
+    margin: 0 auto;
+    width: 90%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+.label-profile-s{
+    width: 163px;
+    color: #4f8db3;
+    display: inline-block;
+    font-weight: 800;
+}
+.input-profile-s-1{
+    width: calc(100% - 163px) !important;
+    border: none !important;
+}
+.input-profile-s{
+    width: 60% !important;
+    border: none !important;
+    border-radius: 0 !important;
+}
+.border-profile-s{
+    width: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 20px;
+    margin-bottom: 5px;
+}
+.para-content-profile-s{
+    width: 800px;
+}
+.para-menu-profile-s{
+    width: 285px;
+}
+.body-menu-profile-s{
+    width: 100%;
+    height: 300px;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 3px 0px, rgba(0, 0, 0, 0.19) 0px 1px 6px 0px;
+    margin-top: 55px;
+    padding: 20px;
+    background-color: rgb(255, 255, 255);
+}
+.tag-a-profile-s{
+    color: #2c3e50;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+.tag-a-profile-s:hover{
+    color: #2c3e50;
+}
+.profileForMobile-1{
+    width: 100%;
+    /* margin-right: 4%; */
+}
+.profileForMobile-2{
+    width: 100%;
+    margin-top: 2px;
+}
+.child-menu-profile-s{
+    height: 30px;
+    line-height: 30px;
+    transition: transform 0.25s, opacity 0.25s;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.child-menu-profile-s:hover{
+    transform: translateX(10px);
+}
+.doiMK{
+    height: fit-content;
+    margin-top: 3px;
+}
+.doiMK:hover{
+    color: rgb(240, 27, 27) !important;
+}
+@media (min-width:993px) and (max-width:1200px){
+    .para-profile-member{
+        width: 96%;
+    }
+    .para-menu-profile-s{
+        width: 25%;
+    }
+    .para-content-profile-s{
+        width: 73%;
+    }
+}
+@media (max-width: 992px){
+    .para-profile-member{
+        width: 100%;
+        box-shadow: none;
+    }
+    .profileForMobile-1{
+        width: 100%;
+    }   
+    .profileForMobile-2{
+        width: 100%;
+    }
+    .label_information{
+        font-size: 13px;
+    }
+    .input_information{
+        font-size: 13px;
+    }
+}
+@media (min-width: 651px) and (max-width: 992px){
+    .body-menu-profile-s{
+        padding: 5px;
+    }
+    .para-menu-profile-s{
+        width: 24%;
+    }
+    .para-content-profile-s{
+        width: 75%;
+    }
+}
+@media (max-width: 650px){
+    .para-menu-profile-s{
+        display: none;
+    }
+    .para-content-profile-s{
+        width: 100%;
+    }
+    .input-profile-s-1 {
+        width: 100% !important;
+    }
+}

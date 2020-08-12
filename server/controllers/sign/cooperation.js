@@ -211,7 +211,7 @@ exports.readAllMyCooperation = async (req, res) => {
         })
         if (user.role == 'admin') {
             let coop = await Cooperation.findAll({
-                attributes: ['note', 'renew', 'sign_date', 'expiry_date', 'file'],
+                attributes: ['id', 'note', 'renew', 'sign_date', 'expiry_date', 'file'],
                 include: [{
                     model: User,
                     attributes: ['facultyId']
@@ -238,7 +238,7 @@ exports.readAllMyCooperation = async (req, res) => {
                 where: {
                     accountId: req.userId
                 },
-                attributes: ['note', 'renew', 'sign_date', 'expiry_date', 'file'],
+                attributes: ['id', 'note', 'renew', 'sign_date', 'expiry_date', 'file'],
                 include: [{
                     model: User,
                     attributes: ['facultyId']
@@ -286,6 +286,36 @@ exports.readAllMyCooperation = async (req, res) => {
             let send = shareCoop.cooperations
             res.status(200).send({success: true, total: Object.keys(myCoop).length, message: myCoop, totalData: Object.keys(send).length, data: send})
         }
+    } catch (error) {
+        res.status(500).send({success: false, message: error.message})
+    }
+}
+
+exports.readCooperation = async (req, res) => {
+    try {
+        let coop = await Cooperation.findOne({
+            where: {
+                id: req.params.id
+            },
+            attributes: ['id', 'note', 'renew', 'contract_value', 'sign_date', 'expiry_date', 'file'],
+            include: [{
+                model: Partner,
+                attributes: ['name']
+            }, {
+                model: Faculty,
+                attributes: ['name']
+            }, {
+                model: MemberSign,
+                attributes: ['fullname']
+            }, {
+                model: PartnerSign,
+                attributes: ['fullname']
+            }, {
+                model: Main,
+                attributes: ['main_cooperation']
+            }] 
+        })
+        res.status(200).send({success: true, message: coop})
     } catch (error) {
         res.status(500).send({success: false, message: error.message})
     }

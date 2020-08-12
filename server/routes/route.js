@@ -9,6 +9,7 @@ module.exports = (app) => {
     const partner_sign          =       require('../controllers/general/partner_sign')
     const cooperation           =       require('../controllers/sign/cooperation')
     const cooperation_detail    =       require('../controllers/sign/cooperation-detail')
+    const notify                =       require('../controllers/notification/notify')
 
     // general
     app.post('/api/login', [authJwt.checkUsername, authJwt.checkPassword], user.login)
@@ -57,7 +58,9 @@ module.exports = (app) => {
     app.get('/api/partner/sign/:id', [authJwt.verifyToken], partner_sign.readPartnerSign)
     app.delete('/api/partner/sign/:id', [authJwt.verifyToken], partner_sign.deletePartnerSign)
     // sign: cooperation
-    app.post('/api/cooperation/add', [authJwt.verifyToken],cooperation.createCooperation)
+    app.post('/api/cooperation/add', [authJwt.verifyToken], cooperation.createCooperation)
+    app.put('/api/cooperation/:id', [authJwt.verifyToken], cooperation.updateCooperation)
+    app.get('/api/cooperation/:id', [authJwt.verifyToken], cooperation.readCooperation)
     app.get('/api/cooperation/partner/all', [authJwt.verifyToken], cooperation.readAllPartner)
     app.get('/api/cooperation/faculty/all', [authJwt.verifyToken], cooperation.readAllFaculty)
     app.get('/api/mycooperation/all', [authJwt.verifyToken], cooperation.readAllMyCooperation)
@@ -66,4 +69,6 @@ module.exports = (app) => {
     app.put('/api/cooperation/main/:id', [authJwt.verifyToken], cooperation_detail.updateMainCooperation)
     app.get('/api/cooperation/main/all', [authJwt.verifyToken], cooperation_detail.readAllMainCooperation)
     app.get('/api/cooperation/main/:id', [authJwt.verifyToken], cooperation_detail.readMainCooperation)
+    // notify
+    app.get('/api/notify/cooperation', notify.notifyCooperationExpire)
 }

@@ -3,8 +3,19 @@ export const navs = [
         Id1: "#collapse1",
         Id2: "collapse1",
         id: "general",
-        name: "HỢP TÁC",
+        name: "TRANG CHỦ",
         IconID: "icon1", 
+        children: [{
+                name: "TRANG CHỦ",
+                href: "/"
+            }
+        ]
+    }, {
+        Id1: "#collapse2",
+        Id2: "collapse2",
+        id: "general",
+        name: "HỢP TÁC",
+        IconID: "icon2", 
         children: [{
                 name: "KÝ KẾT",
                 href: "/general/cooperation"
@@ -17,11 +28,11 @@ export const navs = [
             }
         ]
     }, {
-        Id1: "#collapse2",
-        Id2: "collapse2",
+        Id1: "#collapse3",
+        Id2: "collapse3",
         id: "general",
         name: "QUẢN LÝ CHUNG",
-        IconID: "icon2", 
+        IconID: "icon3", 
         children: [{
                 name: "QUẢN LÝ ĐỐI TÁC",
                 href: "/general/manager-partner"
@@ -34,11 +45,11 @@ export const navs = [
             }
         ]
     }, {
-        Id1: "#collapse3",
-        Id2: "collapse3",
+        Id1: "#collapse4",
+        Id2: "collapse4",
         id: "admin",
         name: "ADMIN",
-        IconID: "icon3", 
+        IconID: "icon4", 
         children: [{
                 name: "QUẢN LÝ KHOA",
                 href: "/admin/manager-faculty"

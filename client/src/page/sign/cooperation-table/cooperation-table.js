@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import HomepageContext from "../../../context/HomepageContext"
 import { Table, Button, Radio, Tag, notification } from 'antd'
 import { getAllMyCo } from '../../../api/base/cooperation/cooperation'
+import { Link } from 'react-router-dom'
 
 const {Column} = Table
 
@@ -156,12 +157,12 @@ const CooperationTable = () => {
                 <Column 
                     title="Sửa" 
                     width="15%" 
-                    dataIndex="renew" 
-                    key="renew"
-                    render={member_signs => (
-                        <>
-                          <Button></Button>
-                        </>
+                    dataIndex="id" 
+                    key="id"
+                    render={id => (
+                        <Link to={{pathname:`/general/cooperation-edit/${id}`}}>
+                            <Button> Sửa </Button>
+                        </Link>
                     )}
                 />
             </Table>
