@@ -133,7 +133,7 @@ const Cooperation = (props) => {
                                     {getFieldDecorator('user_partners', {
                                         rules: [{
                                             required: true,
-                                            message: 'Chưa chọn đối tác!'
+                                            message: 'Chưa chọn người ký (đối tác)!'
                                         }]
                                     })(
                                         <Select 
@@ -224,7 +224,12 @@ const Cooperation = (props) => {
                                 </div>
                                 <div className="border-bottom-profile-s">
                                     <label className="label-profile-s"> Ngày ký </label>
-                                    {getFieldDecorator('sign_date')(
+                                    {getFieldDecorator('sign_date', {
+                                        rules: [{
+                                            required: true,
+                                            message: 'Chưa chọn ngày ký!'
+                                        }]
+                                    })(
                                         <Input type="date"></Input>
                                     )}
                                 </div>

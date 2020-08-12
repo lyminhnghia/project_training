@@ -9,6 +9,7 @@ const Main = db.main_cooperation
 const CooFaculty = db.coo_faculty
 const CooMember = db.coo_member
 const CooPartner = db.coo_partner
+const Op = db.Sequelize.Op
 
 exports.createCooperation = async (req, res) => {
     if (!req.body.user_partners) {
@@ -16,9 +17,6 @@ exports.createCooperation = async (req, res) => {
     }
     if (!req.body.member_signs) {
         return res.status(403).send({success: false, message: "Required member sign!"})
-    }
-    if (!req.body.sign_date || !req.body.expiry_date) {
-        return res.status(403).send({success: false, message: "Requied sign date and expiry date!"})
     }
     if (req.body.expiry_date - req.body.sign_date < 0) {
         return res.status(403).send({success: false, message: "Required sign date <= expiry date!"})
@@ -63,6 +61,83 @@ exports.createCooperation = async (req, res) => {
             })
         }
         await res.status(200).send({success: true, message: 'Created successful!'})
+    } catch (error) {
+        res.status(500).send({success: false, message: error.message})
+    }
+}
+
+exports.updateCooperation = async (req, res) => {
+    if (!req.body.user_partners) {
+        return res.status(403).send({success: false, message: "Required partner sign!"})
+    }
+    if (!req.body.member_signs) {
+        return res.status(403).send({success: false, message: "Required member sign!"})
+    }
+    if (req.body.expiry_date - req.body.sign_date < 0) {
+        return res.status(403).send({success: false, message: "Required sign date <= expiry date!"})
+    }
+
+    partner = req.body.user_partners
+    member = req.body.member_signs
+    faculty = req.body.faculties
+    cooId = req.params.id
+
+    try {
+        await Cooperation.update({
+            note: req.body.note,
+            renew: req.body.renew,
+            contract_value: req.body.contract_value,
+            sign_date: req.body.sign_date,
+            expiry_date: req.body.expiry_date,
+            partnerId: req.body.partnerId
+        }, {
+            where: {
+                id: cooId
+            }
+        })
+        Main.update({
+            main_cooperation: req.body.main_cooperation,
+        }, {
+            where: {
+                cooperationId: cooId
+            }
+        })
+        if (faculty) {
+            await CooFaculty.destroy({
+                where: {
+                    cooperationId: cooId
+                }
+            })
+            for (i in faculty) {
+                CooFaculty.create({
+                    facultyId: faculty[i],
+                    cooperationId: cooId
+                })
+            }
+        }
+        await CooPartner.destroy({
+            where: {
+                cooperationId: cooId
+            }
+        })
+        for (i in partner) {
+            CooPartner.create({
+                user_partnerId: partner[i],
+                cooperationId: cooId
+            })
+        }
+        await CooMember.destroy({
+            where: {
+                cooperationId: cooId
+            }
+        })
+        for (i in member) {
+            CooMember.create({
+                member_signId: member[i],
+                cooperationId: cooId
+            })
+        }
+        await res.status(200).send({success: true, message: 'Updated successful!'})
     } catch (error) {
         res.status(500).send({success: false, message: error.message})
     }
@@ -190,7 +265,12 @@ exports.readAllMyCooperation = async (req, res) => {
                 },
                 include: [{
                     model: Cooperation,
-                    attributes: ['sign_date', 'expiry_date'],
+                    where: {
+                        accountId: {
+                            [Op.ne]: req.userId
+                        }
+                    },
+                    attributes: ['sign_date', 'expiry_date', 'renew'],
                     include: [{
                         model: MemberSign,
                         attributes: ['fullname']

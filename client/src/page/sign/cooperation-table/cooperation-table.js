@@ -7,6 +7,7 @@ const {Column} = Table
 
 const CooperationTable = () => {
     const [table, setTable] = useState([])
+    const [follow, setFollow] = useState([])
     const [page, setPage] = useState(1)
     const [total, setTotal] = useState(0)
     const { setLoading } = useContext(HomepageContext)
@@ -18,6 +19,9 @@ const CooperationTable = () => {
             if (data.success) {
                 setTable(data.message)
                 setTotal(data.total)
+                if (data.data) {
+                    setFollow(data.data)
+                }
             } else {
                 notification['error']({
                     message: data.message
@@ -36,9 +40,55 @@ const CooperationTable = () => {
         setPage(page)
     }
 
+    const columns = [
+        {
+            title: 'Nội dung hợp tác chính',
+            dataIndex: 'main_cooperations[0].main_cooperation'
+        }, {
+            title: 'Người ký',
+            dataIndex: 'member_signs',
+            render: (member_signs) => {
+                return <>
+                    {member_signs.map(sign => (
+                        <Tag color="blue" key={sign.fullname}>
+                        {sign.fullname}
+                        </Tag>
+                    ))}
+                </>
+            }
+        }, {
+            title: 'Người ký (đối tác)',
+            dataIndex: 'user_partners',
+            render: (user_partners) => {
+                return <>
+                    {user_partners.map(sign => (
+                        <Tag color="blue" key={sign.fullname}>
+                            {sign.fullname}
+                        </Tag>
+                    ))}
+                </>
+            }
+        }, {
+            title: 'Ngày ký',
+            dataIndex: 'sign_date'
+        }, {
+            title: 'Ngày hết hiệu lực',
+            dataIndex: 'expiry_date'
+        }, {
+            title: 'Renew',
+            dataIndex: 'renew',
+            render: (renew) => {
+                return <Radio.Group value={renew ? 1 : 0}>
+                    <Radio disabled value={1}></Radio>
+                </Radio.Group>
+            }
+        }
+    ]
+
     return (
         <div>
-            <Table
+            <div style={{fontSize: "40px"}}>Quản lý hoạt động hợp tác</div>
+            <Table 
                 dataSource={table}
                 bordered 
                 scroll={{x: 'max-content'}} 
@@ -115,6 +165,20 @@ const CooperationTable = () => {
                     )}
                 />
             </Table>
+            <div style={{fontSize: "40px"}}>Các hoạt động hợp tác được chia sẻ</div>
+            <Table
+                columns={columns} 
+                dataSource={follow}
+                bordered 
+                scroll={{x: 'max-content'}} 
+                pagination={{
+                    onChange: _onPageChange,
+                    current: page,
+                    total: total,
+                    pageSize: 10,
+                    showQuickJumper: true
+                }}
+            />
         </div>
     )
 }
