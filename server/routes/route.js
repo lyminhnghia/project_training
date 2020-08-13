@@ -80,4 +80,9 @@ module.exports = (app) => {
     app.get('/api/cooperation/main/:id', [authJwt.verifyToken], cooperation_detail.readMainCooperation)
     // notify
     app.get('/api/notify/cooperation', [authJwt.verifyToken], notify.notifyCooperationExpire)
+    const interval = () => {
+        notify.sendEmail()
+    }
+      
+    setInterval(interval, 1000 * 60 * 60 * 24);
 }

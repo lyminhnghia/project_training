@@ -57,33 +57,52 @@ exports.notifyCooperationExpire = async (req, res) => {
     }
 }
 
-// exports.sendEmail = async () => {
-//     const user = await User.findOne({
-//         attributes: ['mail'],
-//         where: {
-//             role: 'admin'
-//         }
+exports.sendEmail = async () => {
+    const user = await User.findOne({
+        attributes: ['mail'],
+        where: {
+            role: 'admin'
+        }
+    })
 
-//     })
-//     var transport = await nodemailer.createTransport({
-//         service: 'gmail',
-//         auth: {
-//             user: 'hoithanhnienvandonghienmau@gmail.com',
-//             pass: 'hoimauhanoi1994@'
-//         }
-//     })
-//     var mailOptions = {
-//         from: 'lyminhnghia',
-//         to: user.mail,
-//         subject: 'Sending Email using Node.js',
-//         text: 'That was easy!'
-//     }
-      
-//     transport.sendMail(mailOptions, (error, info) => {
-//         if (error) {
-//             return console.log(error);
-//         }
-//         console.log('Message sent: %s', info.messageId)
-//     })
+    var partner = await Partner.findAll({
+        attributes: ['name', 'founding_date'],
+        where: {
+            founding_date: {
+                [Op.lte]: moment().add(7, 'days').toDate()
+            }
+        }
+    })
 
-// }
+    var transport = await nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user: 'hoithanhnienvandonghienmau@gmail.com',
+            pass: 'hoimauhanoi1994@'
+        }
+    })
+    
+    for (let i in partner) {
+        var countDate = moment(partner[i].founding_date).diff(Date.now(), 'day') + 1
+        var year = moment(partner[i].founding_date).get('year')
+        var yearNow = moment(Date.now()).get('year')
+        if (countDate < 0) {
+            countDate = countDate + 365 * (yearNow - year)
+        }
+        if (countDate <= 7) {
+            var mailOptions = {
+                from: 'me',
+                to: user.mail,
+                subject: `Sinh nhật đối tác ${partner[i].name}`,
+                text: `Chỉ còn ${countDate} ngày nữa là  tới ngày thành lập ${partner[i].name} hãy gửi lời chúc mừng tới họ!!!`
+            }
+              
+            transport.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                    return console.log(error);
+                }
+                console.log('Message sent: %s', info.messageId)
+            })
+        }
+    }
+}
