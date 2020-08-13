@@ -4,8 +4,6 @@ import { Table, Button, Radio, Tag, notification } from 'antd'
 import { getAllMyCo } from '../../../api/base/cooperation/cooperation'
 import { Link } from 'react-router-dom'
 
-const {Column} = Table
-
 const CooperationTable = () => {
     const [table, setTable] = useState([])
     const [follow, setFollow] = useState([])
