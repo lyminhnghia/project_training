@@ -1,10 +1,29 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Select, Form, notification, Input, Button, Radio, Checkbox } from 'antd'
+import { Select, Form, notification, Input, Button, Radio, Checkbox, Upload, Icon, message } from 'antd'
 import { getCooperation, getAllName, getAllPartnerCo, getAllMemberCo, updateCooperation } from '../../../../api/base/cooperation/cooperation'
 import HomepageContext from "../../../../context/HomepageContext"
 import { useParams } from 'react-router-dom'
 import './cooperation-edit.css'
 const {Option} = Select
+
+const upload = {
+    name: 'file',
+    action: 'http://localhost:5000/api/upload',
+    headers: {
+        'Content-Type': 'multipart/form-data',
+    },
+    data: (info) => info.file,
+    onChange(info) {
+      if (info.file.status !== 'uploading') {
+        console.log(info.file);
+      }
+      if (info.file.status === 'done') {
+        message.success(`${info.file.name} file uploaded successfully`);
+      } else if (info.file.status === 'error') {
+        message.error(`${info.file.name} file upload failed.`);
+      }
+    },
+  }
 
 const CooperationEdit = (props) => {
     const { getFieldDecorator } = props.form
@@ -19,6 +38,7 @@ const CooperationEdit = (props) => {
     const [defaultMain, setDefaultMain] = useState([])
     const [defaultMS, setDefaultMS] = useState([])
     const [defaultPS, setDefaultPS] = useState([])
+    const [defaultShare, setDefaultShare] = useState([])
 
     const { setLoading } = useContext(HomepageContext)
 
@@ -29,8 +49,21 @@ const CooperationEdit = (props) => {
             if (data.success) {
                 setCooperation(data.message)
                 setDefaultMain(data.message.main_cooperations[0])
-                setDefaultPS(data.message.user_partners)
-                setDefaultMS(data.message.member_signs)
+                let ds = []
+                for (let i in data.message.faculties) {
+                    ds[i] = data.message.faculties[i].id
+                }
+                setDefaultShare(ds)
+                let dps = []
+                for (let i in data.message.user_partners) {
+                    dps[i] = data.message.user_partners[i].id
+                }
+                setDefaultPS(dps)
+                let dms = []
+                for (let i in data.message.member_signs) {
+                    dms[i] = data.message.member_signs[i].id
+                }
+                setDefaultMS(dms)
             } else {
                 notification['error']({
                     message: data.message
@@ -159,6 +192,7 @@ const CooperationEdit = (props) => {
                                 <div className="border-bottom-profile-s">
                                     <label className="label-profile-s"> Người ký (đối tác) </label>
                                     {getFieldDecorator('user_partners', {
+                                        initialValue: defaultPS,
                                         rules: [{
                                             required: true,
                                             message: 'Chưa chọn người ký (đối tác)!'
@@ -180,12 +214,7 @@ const CooperationEdit = (props) => {
                                 </div>
                                 <div className="border-bottom-profile-s">
                                     <label className="label-profile-s"> Đơn vị theo dõi</label>
-                                    {getFieldDecorator('facultyId', {
-                                        rules: [{
-                                            required: true,
-                                            message: 'Chưa chọn khoa!'
-                                        }]
-                                    })(
+                                    {getFieldDecorator('facultyId')(
                                         <Select
                                             onChange={mapSignMember}
                                             showSearch
@@ -203,6 +232,7 @@ const CooperationEdit = (props) => {
                                 <div className="border-bottom-profile-s">
                                     <label className="label-profile-s"> Người ký</label>
                                     {getFieldDecorator('member_signs', {
+                                        initialValue: defaultMS,
                                         rules: [{
                                             required: true,
                                             message: 'Chưa chọn người ký!'
@@ -224,7 +254,9 @@ const CooperationEdit = (props) => {
                                 </div>
                                 <div className="border-bottom-profile-s">
                                     <label className="label-profile-s"> Chia sẻ cho các khoa </label>
-                                    {getFieldDecorator('faculties')(
+                                    {getFieldDecorator('faculties', {
+                                        initialValue: defaultShare
+                                    })(
                                         <Checkbox.Group style={{ textAlign: "center" }}>
                                             {nameFaculty.map(names => (
                                                 <Checkbox key={names.id} value={names.id}>{names.name}</Checkbox>
@@ -292,7 +324,11 @@ const CooperationEdit = (props) => {
                                     {getFieldDecorator('file', {
                                         initialValue: cooperation.file
                                     })(
-                                        <Input type="file"></Input>
+                                        <Upload {...upload}>
+                                            <Button>
+                                                <Icon type="upload" /> Click to Upload
+                                            </Button>
+                                        </Upload>
                                     )}
                                 </div>
                             </div>

@@ -300,13 +300,13 @@ exports.readCooperation = async (req, res) => {
             attributes: ['id', 'note', 'renew', 'contract_value', 'sign_date', 'expiry_date', 'file', 'partnerId'],
             include: [{
                 model: Faculty,
-                attributes: ['name']
+                attributes: ['id', 'name']
             }, {
                 model: MemberSign,
-                attributes: ['fullname']
+                attributes: ['id', 'fullname']
             }, {
                 model: PartnerSign,
-                attributes: ['fullname']
+                attributes: ['id', 'fullname']
             }, {
                 model: Main,
                 attributes: ['main_cooperation']

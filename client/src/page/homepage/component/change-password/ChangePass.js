@@ -29,7 +29,9 @@ const ChangePass = () => {
                 setIsLoading(true)
                 notification['success']({
                     message: 'Cập nhật mật khẩu thành công ',
-                }, logout())
+                })
+                logout()
+                setIsLoading(false)
             }
             else {
                 setCheckPass1(true)

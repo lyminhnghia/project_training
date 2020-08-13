@@ -65,6 +65,15 @@ module.exports = (app) => {
     app.get('/api/cooperation/faculty/all', [authJwt.verifyToken], cooperation.readAllFaculty)
     app.get('/api/mycooperation/all', [authJwt.verifyToken], cooperation.readAllMyCooperation)
     app.get('/api/user/faculty/name/all', [authJwt.verifyToken], cooperation.ReadAllNameFacultyUser)
+
+    var multer  = require('multer')
+    var upload = multer({ dest: './uploads' })
+    app.post('/api/upload', (req, res) => {
+        // req.file is the name of your file in the form above, here 'uploaded_file'
+        // req.body will hold the text fields, if there were any 
+        console.log(req.body)
+        res.send(true)
+     })
     // sign: cooperation-detail
     app.put('/api/cooperation/main/:id', [authJwt.verifyToken], cooperation_detail.updateMainCooperation)
     app.get('/api/cooperation/main/all', [authJwt.verifyToken], cooperation_detail.readAllMainCooperation)
