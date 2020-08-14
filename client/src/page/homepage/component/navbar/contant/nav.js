@@ -18,13 +18,13 @@ export const navs = [
         IconID: "icon2", 
         children: [{
                 name: "KÝ KẾT",
-                href: "/general/cooperation"
+                href: "/cooperation"
             }, {
                 name: "HOẠT ĐỘNG HỢP TÁC",
-                href: "/general/cooperation-table"
+                href: "/cooperation-table"
             }, {
                 name: "HĐHT CỤ THỂ",
-                href: "/general/cooperation-detail"
+                href: "/cooperation-detail"
             }
         ]
     }, {
@@ -35,13 +35,13 @@ export const navs = [
         IconID: "icon3", 
         children: [{
                 name: "QUẢN LÝ ĐỐI TÁC",
-                href: "/general/manager-partner"
+                href: "/manager-partner"
             }, {
                 name: "ĐẠI DIỆN (KHOA/TRƯỜNG)",
-                href: "/general/manager-member-sign"
+                href: "/manager-member-sign"
             }, {
                 name: "ĐẠI DIỆN (ĐỐI TÁC)",
-                href: "/general/manager-partner-sign"
+                href: "/manager-partner-sign"
             }
         ]
     }, {
@@ -52,13 +52,13 @@ export const navs = [
         IconID: "icon4", 
         children: [{
                 name: "QUẢN LÝ KHOA",
-                href: "/admin/manager-faculty"
+                href: "/manager-faculty"
             }, {
                 name: "QUẢN LÝ ACCOUNT",
-                href: "/admin/manager-account"
+                href: "/manager-account"
             },{
                 name: "QUẢN LÝ QUỐC GIA",
-                href: "/admin/manager-country"
+                href: "/manager-country"
             } 
         ]
     }

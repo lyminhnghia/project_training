@@ -39,7 +39,7 @@ const Notify = () => {
                 notify.map((search,index) =>(
                     <div key={"U-"+index}>                       
                         <ul className="panel-heading list-group-blood " data-toggle="collapse">
-                            <Link to={{pathname:`/general/cooperation-edit/${search.id}`}}>
+                            <Link to={{pathname:`/cooperation-edit/${search.id}`}}>
                                 <div className="AFM">
                                     {index + 1}. Thỏa thuận hợp tác "{search.main_cooperations[0].main_cooperation}" ký với {search.partner.name} còn {moment(search.expiry_date).diff(Date.now(), 'day') + 1} ngày nữa sẽ hết hạn, bạn có muốn làm mới?
                                 </div>

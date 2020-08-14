@@ -25,44 +25,44 @@ const routes = [
                 exact: true,
                 component: Notify,
             }, {
-                path: "/admin/manager-faculty",
+                path: "/manager-faculty",
                 exact: true,
                 component: FacultyTable
             }, {
-                path: "/admin/manager-account",
+                path: "/manager-account",
                 exact: true,
                 component: AccountTable
             }, {
-                path: "/admin/manager-country",
+                path: "/manager-country",
                 exact: true,
                 component: CountryTable
             }, {
-                path: "/general/manager-partner",
+                path: "/manager-partner",
                 exact: true,
                 component: PartnerTable
             }, {
-                path: "/general/manager-partner-sign",
+                path: "/manager-partner-sign",
                 exact: true,
                 component: PartnerSignTable
             }, {
-                path: "/general/manager-member-sign",
+                path: "/manager-member-sign",
                 exact: true,
                 component: MemberSignTable
             }, {
-                path: "/general/cooperation",
+                path: "/cooperation",
                 exact: true,
                 component: Cooperation
             }, {
-                path: "/general/cooperation-detail",
+                path: "/cooperation-detail",
                 exact: true,
                 component: CooperationDetail
             }
             , {
-                path: "/general/cooperation-table",
+                path: "/cooperation-table",
                 exact: true,
                 component: CooperationTable
             }, {
-                path: "/general/cooperation-edit/:id",
+                path: "/cooperation-edit/:id",
                 exact: true,
                 component: CooperationEdit
             }

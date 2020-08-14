@@ -14,8 +14,6 @@ const NavBar = () => {
             } else {
                 roleAdmin.style.display = 'none'
             }
-        } else {
-            logout()
         }
         
     })

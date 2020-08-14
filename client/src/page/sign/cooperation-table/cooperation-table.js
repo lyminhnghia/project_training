@@ -149,7 +149,7 @@ const CooperationTable = () => {
             fixed: 'right',
             key:"id",
             render:id => (
-                <Link to={{pathname:`/general/cooperation-edit/${id}`}}>
+                <Link to={{pathname:`/cooperation-edit/${id}`}}>
                     <Button> Sửa </Button>
                 </Link>
             )

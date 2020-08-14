@@ -5,6 +5,7 @@ import { getUserProfile } from '../base/auth'
 
 export const logout = () => {
     removeCookie(COOKIE_KEY.TOKEN)
+    removeCookie(COOKIE_KEY.ROLE)
     window.location.href = Paths.Login
 }
 
