@@ -26,10 +26,6 @@ const CooperationTable = () => {
                     message: data.message
                 })
             }
-        } else {
-            notification['error']({
-                message: data
-            })
         }
         setLoading(false)
     }
@@ -149,7 +145,8 @@ const CooperationTable = () => {
         }, {
             title:"Sửa", 
             width:"15%", 
-            dataIndex:"id", 
+            dataIndex:"id",
+            fixed: 'right',
             key:"id",
             render:id => (
                 <Link to={{pathname:`/general/cooperation-edit/${id}`}}>

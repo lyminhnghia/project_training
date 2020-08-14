@@ -6,13 +6,16 @@ import { logout, checkAuth, getUser } from '../../../../api/auth/auth'
 const NavBar = () => {
 
     const roles = getUser().then(async (value) => {
-        if (await checkAuth()) {
+        let check = await checkAuth()
+        if (check) {
             var roleAdmin = document.getElementById('admin')
             if (value.role === 'admin') {
                 roleAdmin.style.display = 'block'
             } else {
                 roleAdmin.style.display = 'none'
             }
+        } else {
+            logout()
         }
         
     })

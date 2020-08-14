@@ -181,7 +181,7 @@ const CooperationEdit = (props) => {
                                             message: 'Chưa chọn đối tác!'
                                         }]
                                     })(
-                                        <Select
+                                        <Select 
                                             onChange={mapSignPartner}
                                             showSearch
                                             placeholder="Tên đối tác" 
