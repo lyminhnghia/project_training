@@ -12,22 +12,22 @@ exports.login = (req, res) => {
 		}
 	}).then(users => {
 		if (!users) {
-			return res.send({success: false, message:"Username does not exist!"})
+			return res.status(403).send({success: false, message:"Username does not exist!"})
 		}
 
 		var passwordIsValid = bcrypt.compareSync(req.body.password, users.password)
 		if (!passwordIsValid) {
-			return res.send({success: false, message:"Password incorrect!"});
+			return res.status(403).send({success: false, message:"Password incorrect!"});
 		}
 		
 		let JwtToken = jwt.sign({ id: users.id }, config.secret, {
 		  	expiresIn: 86400 // token hết hạn sau 24 giờ
 		});
 
-		res.send({success : true, message: JwtToken, role: users.role})
+		res.status(200).send({success : true, message: JwtToken, role: users.role})
 		
 	}).catch(error => {
-		res.send({success: false, message: error.message})
+		res.status(500).send({success: false, message: error.message})
 	})
 }
 

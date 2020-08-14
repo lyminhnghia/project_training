@@ -26,6 +26,10 @@ const AccountTable = () => {
                     message: data.message
                 })
             }
+        } else {
+            notification['error']({
+                message: data
+            })
         }
         setLoading(false)
     }
@@ -41,7 +45,11 @@ const AccountTable = () => {
                   message: data.message
               })
           }
-      }
+      } else {
+        notification['error']({
+            message: data
+        })
+    }
       setLoading(false)
   }
 

@@ -1,4 +1,4 @@
-import {createAuthApiRequest} from '../../index'
+import {createAuthApiRequest, uploadFile} from '../../index'
 
 export const addCooperation = (data) => {
     return createAuthApiRequest({
@@ -50,3 +50,14 @@ export const getAllName = () => {
         method: 'get'
     })
 }
+
+export const getFile = (fileName) => {
+    return createAuthApiRequest({
+      url: `/api/file/${fileName}`,
+      method: 'get'
+    })
+  }
+  
+  export const upload = ({data, filename, file}) => {
+    return uploadFile('/api/upload/file', data, filename, file)
+  }

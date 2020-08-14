@@ -10,6 +10,9 @@ module.exports = (app) => {
     const cooperation           =       require('../controllers/sign/cooperation')
     const cooperation_detail    =       require('../controllers/sign/cooperation-detail')
     const notify                =       require('../controllers/notification/notify')
+    const multer                =       require('multer')
+    const path                  =       require('path')
+    const fileUpload            =       multer({dest: 'upload/'})
 
     // general
     app.post('/api/login', [authJwt.checkUsername, authJwt.checkPassword], user.login)
@@ -66,14 +69,18 @@ module.exports = (app) => {
     app.get('/api/mycooperation/all', [authJwt.verifyToken], cooperation.readAllMyCooperation)
     app.get('/api/user/faculty/name/all', [authJwt.verifyToken], cooperation.ReadAllNameFacultyUser)
 
-    var multer  = require('multer')
-    var upload = multer({ dest: './uploads' })
-    app.post('/api/upload', (req, res) => {
-        // req.file is the name of your file in the form above, here 'uploaded_file'
-        // req.body will hold the text fields, if there were any 
-        console.log(req.body)
-        res.send(true)
-     })
+    app.post('/api/upload/file', [fileUpload.single('file'), authJwt.verifyToken], cooperation.UploadFile)
+
+    app.get('/api/file/:name', (req, res) => {
+		const fileName = req.params.name
+		if (!fileName) {
+			return res.send({
+				status: false,
+				message: 'no filename specified',
+			})
+		}
+		res.sendFile(path.resolve(`./upload/${fileName}`))
+    })
     // sign: cooperation-detail
     app.put('/api/cooperation/main/:id', [authJwt.verifyToken], cooperation_detail.updateMainCooperation)
     app.get('/api/cooperation/main/all', [authJwt.verifyToken], cooperation_detail.readAllMainCooperation)
@@ -84,5 +91,5 @@ module.exports = (app) => {
         notify.sendEmail()
     }
       
-    setInterval(interval, 1000 * 60 * 60 * 24);
+    setInterval(interval, 1000 * 60 * 60 * 24)
 }

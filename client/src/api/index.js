@@ -63,3 +63,42 @@ export const createAuthApiRequest = async ({ url, method, data, params, isFormDa
         }
     }
 }
+
+export const uploadFile = async (url, data, filename, file) => {
+    const formData = new FormData();
+    const token = getCookie(COOKIE_KEY.TOKEN)
+    if (!token) {
+        return
+    }
+    try {
+        if (data) {
+            Object.keys(data).forEach(key => {
+                formData.append(key, data[key]);
+            });
+        }
+        formData.append("file", file);
+        const { data: resp } = await axios.post(
+            `${url}`,
+            formData,
+            {
+                headers: {
+                    'x-access-token': `${token}`
+                }
+            })
+        return {
+            success: true,
+            data: resp,
+        }
+    } catch (e) {
+        const { response } = e
+        const errorMessage = response ? response.data.message : e.message || e
+        if (response.status && [401, 403].includes(response.status)) {
+            logout()
+        }
+
+        return {
+            success: false,
+            message: errorMessage,
+        }
+    }
+}

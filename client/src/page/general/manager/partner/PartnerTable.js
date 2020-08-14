@@ -27,6 +27,10 @@ const CountryTable = () => {
                     message: data.message
                 })
             }
+        } else {
+            notification['error']({
+                message: data
+            })
         }
         setLoading(false)
     }
@@ -42,7 +46,11 @@ const CountryTable = () => {
                   message: data.message
               })
           }
-      }
+      } else {
+        notification['error']({
+            message: data
+        })
+    }
       setLoading(false)
   }
 

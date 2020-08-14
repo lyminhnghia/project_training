@@ -1,4 +1,6 @@
 const db = require('../../configs/db.config')
+const fs = require('fs')
+const path = require('path')
 const Cooperation = db.cooperation
 const MemberSign = db.member_sign
 const PartnerSign = db.user_partner
@@ -316,4 +318,21 @@ exports.readCooperation = async (req, res) => {
     } catch (error) {
         res.status(500).send({success: false, message: error.message})
     }
+}
+
+exports.UploadFile = (req, res) => {
+    if (!req.file) {
+        return res.status(200).send({success: true})
+    }
+    const processedFile = req.file || {}
+    let orgName = processedFile.originalname || ''
+    orgName = orgName.trim().replace(/ /g, "-")
+    const fullPathInServ = processedFile.path
+    const newFullPath = `${fullPathInServ}-${orgName}`
+    fs.renameSync(fullPathInServ, newFullPath);
+
+    var fileString = path.basename(newFullPath)
+    var filePath = `http://localhost:5000/api/upload/` + fileString
+
+    res.status(200).send({success : true, file: filePath})
 }

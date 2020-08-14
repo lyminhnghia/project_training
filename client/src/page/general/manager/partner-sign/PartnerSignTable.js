@@ -27,6 +27,10 @@ const PartnerSignTable = () => {
                     message: data.message
                 })
             }
+        } else {
+            notification['error']({
+                message: data
+            })
         }
         setLoading(false)
     }
@@ -42,7 +46,11 @@ const PartnerSignTable = () => {
                   message: data.message
               })
           }
-      }
+      } else {
+        notification['error']({
+            message: data
+        })
+    }
       setLoading(false)
   }
 

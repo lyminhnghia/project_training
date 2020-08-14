@@ -23,6 +23,10 @@ const DeleteFaculty = (props) => {
                     message: 'Xóa không thành công!',
                 })
             }
+        } else {
+            notification['error']({
+                message: data
+            })
         }
 
     }

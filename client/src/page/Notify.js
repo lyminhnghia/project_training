@@ -22,6 +22,10 @@ const Notify = () => {
                     message: data.message
                 })
             }
+        } else {
+            notification['error']({
+                message: "Có lỗi xảy ra!!!!"
+            })
         }
         setLoading(false)
     }

@@ -27,6 +27,10 @@ const MemberSignTable = () => {
                     message: data.message
                 })
             }
+        } else {
+            notification['error']({
+                message: data
+            })
         }
         setLoading(false)
     }
@@ -42,7 +46,11 @@ const MemberSignTable = () => {
                   message: data.message
               })
           }
-      }
+      } else {
+        notification['error']({
+            message: data
+        })
+    }
       setLoading(false)
   }
 

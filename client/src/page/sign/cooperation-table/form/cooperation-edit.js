@@ -1,29 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Select, Form, notification, Input, Button, Radio, Checkbox, Upload, Icon, message } from 'antd'
+import { Select, Form, notification, Input, Button, Radio, Checkbox, Upload, Icon} from 'antd'
 import { getCooperation, getAllName, getAllPartnerCo, getAllMemberCo, updateCooperation } from '../../../../api/base/cooperation/cooperation'
 import HomepageContext from "../../../../context/HomepageContext"
 import { useParams } from 'react-router-dom'
 import './cooperation-edit.css'
 const {Option} = Select
-
-const upload = {
-    name: 'file',
-    action: 'http://localhost:5000/api/upload',
-    headers: {
-        'Content-Type': 'multipart/form-data',
-    },
-    data: (info) => info.file,
-    onChange(info) {
-      if (info.file.status !== 'uploading') {
-        console.log(info.file);
-      }
-      if (info.file.status === 'done') {
-        message.success(`${info.file.name} file uploaded successfully`);
-      } else if (info.file.status === 'error') {
-        message.error(`${info.file.name} file upload failed.`);
-      }
-    },
-  }
 
 const CooperationEdit = (props) => {
     const { getFieldDecorator } = props.form
@@ -137,6 +118,10 @@ const CooperationEdit = (props) => {
                 // }
             }
         })
+    }
+
+    const onChooseFile = ({ data, filename, file }) => {
+        console.log(file)
     }
 
     useEffect(()=> {
@@ -324,7 +309,12 @@ const CooperationEdit = (props) => {
                                     {getFieldDecorator('file', {
                                         initialValue: cooperation.file
                                     })(
-                                        <Upload {...upload}>
+                                        <Upload
+                                            customRequest={onChooseFile}
+                                            accept={".docx,.pdf,.xlsx"}
+                                            multiple={false}
+                                            fileList={[]}
+                                        >
                                             <Button>
                                                 <Icon type="upload" /> Click to Upload
                                             </Button>

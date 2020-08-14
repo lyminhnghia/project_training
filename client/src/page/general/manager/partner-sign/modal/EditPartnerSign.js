@@ -22,6 +22,10 @@ const EditPartnerSign = (props) => {
                     message: data.message
                 })
             }
+        } else {
+            notification['error']({
+                message: data
+            })
         }
         setLoading(false)
     }

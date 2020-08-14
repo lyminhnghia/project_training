@@ -23,9 +23,13 @@ const LoginWrap = (props) => {
     setIsLoading(true)
     const { success, data } = await login(values)
     if (success) {
-      handleLogin(data)
+      if (data.success) {
+        handleLogin(data)
 
-      props.history.push('/')
+        props.history.push('/')
+      } else {
+        setMessage(data.message)
+      }
     } else {
       setMessage(data)
     }
