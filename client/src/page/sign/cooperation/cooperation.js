@@ -77,9 +77,11 @@ const Cooperation = (props) => {
         props.form.validateFields(async (err, values) => {
             if (!err) {
                 setLoading(true)
-                const result = await upload(file)
-                if (result.success) {
-                    values.file = result.data.file
+                if (file) {
+                    const result = await upload(file)
+                    if (result.success) {
+                        values.file = result.data.file
+                    }
                 }
                 const {success} = await addCooperation(values)
                 setLoading(false)
@@ -261,8 +263,10 @@ const Cooperation = (props) => {
                                 </div>
                                 <div className="border-bottom-profile-s">
                                     <label className="label-profile-s"> Renew </label>
-                                    {getFieldDecorator('renew')(
-                                        <Radio.Group defaultValue={null} name="radiogroup">
+                                    {getFieldDecorator('renew', {
+                                        initialValue: null
+                                    })(
+                                        <Radio.Group name="radiogroup">
                                             <Radio value={1} style={{ marginLeft: '5px'}} className="radio_information"> có </Radio>
                                             <Radio value={0} className="radio_information"> không </Radio>
                                         </Radio.Group>
@@ -270,7 +274,7 @@ const Cooperation = (props) => {
                                 </div>
                                 <div className="border-bottom-profile-s">
                                     <label className="label-profile-s"> File biên bản hợp tác </label>
-                                    {getFieldDecorator('file')(
+                                    {getFieldDecorator('file', )(
                                         <Upload
                                             customRequest={onChooseFile}
                                             accept={".docx,.pdf,.xlsx"}

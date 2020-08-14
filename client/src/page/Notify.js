@@ -16,7 +16,6 @@ const Notify = () => {
         if (success) {
             if (data.success) {
                 setNotify(data.message)
-                console.log(notify)
             } else {
                 notification['error']({
                     message: data.message

@@ -120,9 +120,11 @@ const CooperationEdit = (props) => {
         props.form.validateFields(async (err, values) => {
             if (!err) {
                 setLoading(true)
-                const result = await upload(file)
-                if (result.success) {
-                    values.file = result.data.file
+                if (file) {
+                    const result = await upload(file)
+                    if (result.success) {
+                        values.file = result.data.file
+                    }
                 }
                 const {success} = await updateCooperation(id, values)
                 setLoading(false)
