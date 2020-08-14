@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Select, Form, notification, Input, Button, Radio, Checkbox } from 'antd'
-import { getAllName, getAllPartnerCo, getAllMemberCo, addCooperation } from '../../../api/base/cooperation/cooperation'
+import { Select, Form, notification, Input, Button, Radio, Checkbox, Icon, Upload } from 'antd'
+import { getAllName, getAllPartnerCo, getAllMemberCo, addCooperation, upload } from '../../../api/base/cooperation/cooperation'
 import HomepageContext from "../../../context/HomepageContext"
 import './cooperation.css'
 const {Option} = Select
@@ -10,6 +10,7 @@ const Cooperation = (props) => {
     const [nameFaculty, setNameFaculty] = useState([])
     const [partner, setPartner] = useState([])
     const [member, setMember] = useState([])
+    const [file, setFile] = useState([])
     const [signPartner, setSignPartner] = useState([])
     const [signMember, setSignMember] = useState([])
     const { setLoading } = useContext(HomepageContext)
@@ -76,6 +77,10 @@ const Cooperation = (props) => {
         props.form.validateFields(async (err, values) => {
             if (!err) {
                 setLoading(true)
+                const result = await upload(file)
+                if (result.success) {
+                    values.file = result.data.file
+                }
                 const {success} = await addCooperation(values)
                 setLoading(false)
                 if (success) {
@@ -89,6 +94,10 @@ const Cooperation = (props) => {
                 }
             }
         })
+    }
+
+    const onChooseFile = async ({ data, filename, file }) => {
+        setFile({ data, filename, file })
     }
 
     useEffect(()=> {
@@ -262,7 +271,16 @@ const Cooperation = (props) => {
                                 <div className="border-bottom-profile-s">
                                     <label className="label-profile-s"> File biên bản hợp tác </label>
                                     {getFieldDecorator('file')(
-                                        <Input type="file"></Input>
+                                        <Upload
+                                            customRequest={onChooseFile}
+                                            accept={".docx,.pdf,.xlsx"}
+                                            multiple={false}
+                                            fileList={[]}
+                                        >
+                                            <Button>
+                                                <Icon type="upload" /> Click to Upload
+                                            </Button>
+                                        </Upload>
                                     )}
                                 </div>
                             </div>

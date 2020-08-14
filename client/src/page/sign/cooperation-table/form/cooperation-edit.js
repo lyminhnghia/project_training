@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Select, Form, notification, Input, Button, Radio, Checkbox, Upload, Icon} from 'antd'
-import { getCooperation, getAllName, getAllPartnerCo, getAllMemberCo, updateCooperation } from '../../../../api/base/cooperation/cooperation'
+import { getCooperation, getAllName, getAllPartnerCo, getAllMemberCo, updateCooperation, upload } from '../../../../api/base/cooperation/cooperation'
 import HomepageContext from "../../../../context/HomepageContext"
 import { useParams } from 'react-router-dom'
 import './cooperation-edit.css'
@@ -15,7 +15,7 @@ const CooperationEdit = (props) => {
     const [signPartner, setSignPartner] = useState([])
     const [cooperation, setCooperation] = useState([])
     const [signMember, setSignMember] = useState([])
-
+    const [file, setFile] = useState([])
     const [defaultMain, setDefaultMain] = useState([])
     const [defaultMS, setDefaultMS] = useState([])
     const [defaultPS, setDefaultPS] = useState([])
@@ -50,6 +50,10 @@ const CooperationEdit = (props) => {
                     message: data.message
                 })
             }
+        } else {
+            notification['error']({
+                message: data
+            })
         }
         setLoading(false)
     }
@@ -65,6 +69,10 @@ const CooperationEdit = (props) => {
                     message: data.message
                 })
             }
+        } else {
+            notification['error']({
+                message: data
+            })
         }
         setLoading(false)
     }
@@ -80,6 +88,10 @@ const CooperationEdit = (props) => {
                     message: data.message
                 })
             }
+        } else {
+            notification['error']({
+                message: data
+            })
         }
         setLoading(false)
     }
@@ -95,6 +107,10 @@ const CooperationEdit = (props) => {
                     message: data.message
                 })
             }
+        } else {
+            notification['error']({
+                message: data
+            })
         }
         setLoading(false)
     }
@@ -104,24 +120,27 @@ const CooperationEdit = (props) => {
         props.form.validateFields(async (err, values) => {
             if (!err) {
                 setLoading(true)
-                // const {success} = await updateCooperation(id, values)
-                console.log(values)
+                const result = await upload(file)
+                if (result.success) {
+                    values.file = result.data.file
+                }
+                const {success} = await updateCooperation(id, values)
                 setLoading(false)
-                // if (success) {
-                //     notification['success']({
-                //         message: 'Cập nhật thành công!'
-                //     })
-                // } else {
-                //     notification['error']({
-                //         message: 'Cập nhật thất bại!'
-                //     })
-                // }
+                if (success) {
+                    notification['success']({
+                        message: 'Cập nhật thành công!'
+                    })
+                } else {
+                    notification['error']({
+                        message: 'Cập nhật thất bại!'
+                    })
+                }
             }
         })
     }
 
-    const onChooseFile = ({ data, filename, file }) => {
-        console.log(file)
+    const onChooseFile = async ({ data, filename, file }) => {
+        setFile({ data, filename, file })
     }
 
     useEffect(()=> {
