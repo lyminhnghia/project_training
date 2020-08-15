@@ -28,8 +28,6 @@ const Notify = () => {
                     message: "Có lỗi xảy ra!!!!"
                 })
             }
-        } else {
-            
         }
         setLoading(false)
     }
