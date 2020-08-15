@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import { notification } from 'antd'
 import HomepageContext from '../context/HomepageContext'
 import { notifyCooperation } from '../api/base/notify/notify'
+import { checkAuth } from '../api/auth/auth'
 import { Link } from 'react-router-dom'
 import moment from 'moment'
 import './Notify.css'
@@ -12,19 +13,23 @@ const Notify = () => {
     
     const fetchData = async () => {
         setLoading(true)
-        const { success, data } = await notifyCooperation()
-        if (success) {
-            if (data.success) {
-                setNotify(data.message)
+        if (checkAuth()) {
+            const { success, data } = await notifyCooperation()
+            if (success) {
+                if (data.success) {
+                    setNotify(data.message)
+                } else {
+                    notification['error']({
+                        message: data.message
+                    })
+                }
             } else {
                 notification['error']({
-                    message: data.message
+                    message: "Có lỗi xảy ra!!!!"
                 })
             }
         } else {
-            notification['error']({
-                message: "Có lỗi xảy ra!!!!"
-            })
+            
         }
         setLoading(false)
     }
