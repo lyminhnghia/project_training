@@ -73,13 +73,13 @@ module.exports = (app) => {
 
     app.get('/api/file/:name', (req, res) => {
 		const fileName = req.params.name
-		if (!fileName) {
-			return res.send({
-				status: false,
-				message: 'no filename specified',
-			})
-		}
-		res.sendFile(path.resolve(`./upload/${fileName}`))
+      if (!fileName) {
+        return res.status(500).send({
+          status: false,
+          message: 'no filename specified',
+        })
+      }
+      res.status(200).sendFile(path.resolve(`./upload/${fileName}`))
     })
     // sign: cooperation-detail
     app.put('/api/cooperation/main/:id', [authJwt.verifyToken], cooperation_detail.updateMainCooperation)
