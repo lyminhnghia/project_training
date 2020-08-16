@@ -260,16 +260,16 @@ const CooperationEdit = (props) => {
                                 </div>
                                 <div className="border-bottom-profile-s">
                                     <label className="label-profile-s"> Chia sẻ cho các khoa </label>
+                                </div>
                                     {getFieldDecorator('faculties', {
                                         initialValue: defaultShare
                                     })(
-                                        <Checkbox.Group style={{ textAlign: "center" }}>
+                                        <Checkbox.Group style={{ textAlign: "left", marginLeft: '100px'}}>
                                             {nameFaculty.map(names => (
-                                                <Checkbox key={names.id} value={names.id}>{names.name}</Checkbox>
+                                                <Checkbox style={{ display: 'block' }} key={names.id} value={names.id}>{names.name}</Checkbox>
                                             ))}
                                         </Checkbox.Group>
                                     )}
-                                </div>
                                 <div className="border-bottom-profile-s">
                                     <label className="label-profile-s"> Nội dung hợp tác chính </label>
                                     {getFieldDecorator('main_cooperation', {

@@ -203,7 +203,8 @@ const CooperationTable = () => {
 
     return (
         <div>
-            <div style={{fontSize: "40px"}}>Quản lý hoạt động hợp tác</div><Table 
+            <div className="title-profile-s">QLHĐ hợp tác</div>
+            <Table 
                 columns={columns}
                 dataSource={table}
                 bordered 
@@ -216,7 +217,7 @@ const CooperationTable = () => {
                     showQuickJumper: true
                 }}
             />
-            <div style={{fontSize: "40px"}}>Các hoạt động hợp tác được chia sẻ</div>
+            <div className="title-profile-s">HĐHT được chia sẻ</div>
             <Table
                 columns={columnsShare} 
                 dataSource={follow}
