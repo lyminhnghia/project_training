@@ -150,7 +150,7 @@ const CooperationTable = () => {
             key:"id",
             render:id => (
                 <Link to={{pathname:`/cooperation-edit/${id}`}}>
-                    <Button> Sửa </Button>
+                    <Button style={{ backgroundColor: 'white', color: '#1890ff', whiteSpace: 'inherit', height: 30, width: '50px !important' }}> Sửa </Button>
                 </Link>
             )
         }
