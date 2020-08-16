@@ -19,7 +19,7 @@ exports.notifyCooperationExpire = async (req, res) => {
                 attributes: ['id', 'expiry_date'],
                 where: {
                     expiry_date: {
-                        [Op.lte]: moment().add(7, 'days').toDate()
+                        [Op.between]: [moment().add(0, 'days').toDate(),moment().add(7, 'days').toDate()]
                     },
                     renew: true
                 },
@@ -37,7 +37,7 @@ exports.notifyCooperationExpire = async (req, res) => {
                 attributes: ['id', 'expiry_date'],
                 where: {
                     expiry_date: {
-                        [Op.lte]: moment().add(7, 'days').toDate()
+                        [Op.between]: [moment().add(0, 'days').toDate(),moment().add(7, 'days').toDate()]
                     },
                     accountId: req.userId,
                     renew: true
