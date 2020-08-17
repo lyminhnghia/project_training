@@ -9,7 +9,7 @@ const NavBar = () => {
         let check = await checkAuth()
         if (check) {
             var roleAdmin = document.getElementById('admin')
-            if (value.role === 'admin') {
+            if (value.role == 'admin') {
                 roleAdmin.style.display = 'block'
             } else {
                 roleAdmin.style.display = 'none'
