@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { notification } from 'antd'
+import { notification, Card, Col, Row } from 'antd'
 import HomepageContext from '../context/HomepageContext'
 import { notifyCooperation } from '../api/base/notify/notify'
 import { checkAuth } from '../api/auth/auth'
@@ -37,21 +37,33 @@ const Notify = () => {
     }, [])
     
     return (
-        <div className="para-unit-profile"> 
-            {
-                notify.map((search,index) =>(
-                    <div key={"U-"+index}>                       
-                        <ul className="panel-heading list-group-blood " data-toggle="collapse">
-                            <Link to={{pathname:`/cooperation-edit/${search.id}`}}>
-                                <div className="AFM">
-                                    {index + 1}. Thỏa thuận hợp tác "{search.main_cooperations[0].main_cooperation}" ký với {search.partner.name} còn {moment(search.expiry_date).diff(Date.now(), 'day') + 1} ngày nữa sẽ hết hạn, bạn có muốn làm mới?
+        <>
+            <h1 style={{marginBottom: 20}}>Danh sách các hợp đồng sắp hết hạn</h1>
+            <div className="site-card-wrapper">
+                <Row gutter={24}>
+                    {notify.map((search, index) => (
+                        <Col span={8}>
+                            <Card 
+                                title={search.main_cooperations[0].main_cooperation} 
+                                bordered={true} 
+                                type="inner"
+                                extra={<Link to={{pathname:`/cooperation-edit/${search.id}`}}>Gia hạn</Link>}
+                                
+                                style={{marginBottom: 20}}
+                            >
+                                <div>
+                                    <h4>Công ty</h4>
+                                    <p>{search.partner.name}</p>
                                 </div>
-                            </Link>
-                        </ul>
-                    </div>                   
-                ))              
-            }
-        </div>
+                                <div style={{display:'flex', flexDirection:'row', justifyContent:'space-between'}}>
+                                    <h4>Còn lại</h4>
+                                    <h5 style={{color: '#4f8db3'}}>{moment(search.expiry_date).diff(Date.now(), 'day') + 1} ngày</h5>
+                                </div>
+                            </Card>
+                        </Col>))}
+                </Row>
+            </div>
+        </>
     )
 }
 
