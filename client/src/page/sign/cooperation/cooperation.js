@@ -3,7 +3,6 @@ import { Select, Form, notification, Input, Button, Radio, Checkbox, Icon, Uploa
 import { getAllName, getAllPartnerCo, getAllMemberCo, addCooperation, upload } from '../../../api/base/cooperation/cooperation'
 import HomepageContext from "../../../context/HomepageContext"
 import './cooperation.css'
-import FormItem from 'antd/lib/form/FormItem'
 const { Option } = Select
 
 const Cooperation = (props) => {
@@ -489,9 +488,12 @@ const Cooperation = (props) => {
                         </Upload>
                     )}
                 </Form.Item>
-                <Form.Item>
-                    <Button className="buttonProfile" type="primary" htmlType="submit">Tạo thỏa thuận</Button>
-                </Form.Item>
+                    
+                <div className="DIVprofile">
+                    <Form.Item>
+                        <Button className="buttonProfile" type="primary" htmlType="submit">Tạo thỏa thuận</Button>
+                    </Form.Item>
+                </div>
             </Form>
 
         </div>

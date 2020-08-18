@@ -560,9 +560,11 @@ const CooperationEdit = (props) => {
                         </Upload>
                     )}
                 </Form.Item>
-                <Form.Item>
-                    <Button className="buttonProfile" type="primary" htmlType="submit">Tạo thỏa thuận</Button>
-                </Form.Item>
+                <div className="DIVprofile">
+                    <Form.Item>
+                        <Button className="buttonProfile" type="primary" htmlType="submit">Tạo thỏa thuận</Button>
+                    </Form.Item>
+                </div>
             </Form>
 
         </div>
