@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { notification, Card, Col, Row } from 'antd'
+import { notification, Card, Col, Row, Button } from 'antd'
 import HomepageContext from '../context/HomepageContext'
 import { notifyCooperation } from '../api/base/notify/notify'
 import { checkAuth } from '../api/auth/auth'
@@ -47,7 +47,11 @@ const Notify = () => {
                                 title={search.main_cooperations[0].main_cooperation} 
                                 bordered={true} 
                                 type="inner"
-                                extra={<Link to={{pathname:`/cooperation-edit/${search.id}`}}>Gia hạn</Link>}
+                                extra={<Link to={{pathname:`/cooperation-edit/${search.id}`}}>
+                                    <Button style={{ backgroundColor: 'white', color: '#1890ff', whiteSpace: 'inherit', height: 30, width: '50px !important' }}>
+                                        Gia hạn
+                                    </Button>
+                                </Link>}
                                 
                                 style={{marginBottom: 20}}
                             >
