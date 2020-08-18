@@ -83,6 +83,16 @@ exports.readAllPartnerSign = (req, res) => {
     })
 }
 
+exports.readAllNamePartnerSign = (req, res) => {
+    PartnerSign.findAll({
+        attributes: ['id', 'fullname']
+    }).then(partnerSign => {
+        res.status(200).send({success: true, message: partnerSign})
+    }).catch(error => {
+        res.status(500).send({success: false, message: error.message})
+    })
+}
+
 exports.readPartnerSign = (req, res) => {
     PartnerSign.findOne({
         where: {

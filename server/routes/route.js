@@ -58,6 +58,7 @@ module.exports = (app) => {
     app.post('/api/partner/sign/add', [authJwt.verifyToken], partner_sign.createPartnerSign)
     app.put('/api/partner/sign/:id', [authJwt.verifyToken], partner_sign.updatePartnerSign)
     app.get('/api/partner/sign/all', [authJwt.verifyToken], partner_sign.readAllPartnerSign)
+    app.get('/api/partner/sign/name/all', [authJwt.verifyToken], partner_sign.readAllNamePartnerSign)
     app.get('/api/partner/sign/:id', [authJwt.verifyToken], partner_sign.readPartnerSign)
     app.delete('/api/partner/sign/:id', [authJwt.verifyToken], partner_sign.deletePartnerSign)
     // sign: cooperation

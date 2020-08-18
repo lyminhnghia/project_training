@@ -24,6 +24,13 @@ export const getAllPartnerSign = (page) => {
     })
 }
 
+export const getAllNamePartnerSign = () => {
+    return createAuthApiRequest({
+        url: `/api/partner/sign/name/all`,
+        method: 'get'
+    })
+}
+
 export const getPartnerSign = (id) => {
     return createAuthApiRequest({
         url: `/api/partner/sign/${id}`,
