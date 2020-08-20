@@ -38,10 +38,13 @@ exports.createCooperation = async (req, res) => {
             partnerId: req.body.partnerId,
             accountId: req.userId 
         })
-        Main.create({
-            main_cooperation: req.body.main_cooperation,
-            cooperationId: cooperation.id
-        })
+        main = req.body.main_cooperation.split('-')
+        for (i in faculty) {
+            Main.create({
+                main_cooperation: main[i],
+                cooperationId: cooperation.id
+            })
+        }
         if (faculty) {
             for (i in faculty) {
                 CooFaculty.create({
@@ -97,13 +100,18 @@ exports.updateCooperation = async (req, res) => {
                 id: cooId
             }
         })
-        Main.update({
-            main_cooperation: req.body.main_cooperation,
-        }, {
+        main = req.body.main_cooperation.split('-')
+        await Main.destroy({
             where: {
                 cooperationId: cooId
             }
         })
+        for (i in main) {
+            Main.create({
+                main_cooperation: main[i],
+                cooperationId: cooId
+            })
+        }
         if (faculty) {
             await CooFaculty.destroy({
                 where: {

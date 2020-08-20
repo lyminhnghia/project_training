@@ -35,7 +35,14 @@ const CooperationEdit = (props) => {
                 setSignPartner(data1.data.message)
                 setSignMember(data2.data.message)
                 setCooperation(data.message)
-                setDefaultMain(data.message.main_cooperations[0])
+                var defaultMainValue = ''
+                for (let i in data.message.main_cooperations) {
+                    defaultMainValue += data.message.main_cooperations[i].main_cooperation
+                    if (i != data.message.main_cooperations.length - 1) {
+                        defaultMainValue += ' - '
+                    }
+                }
+                setDefaultMain(defaultMainValue)
                 let ds = []
                 for (let i in data.message.faculties) {
                     ds[i] = data.message.faculties[i].id
@@ -338,7 +345,11 @@ const CooperationEdit = (props) => {
                     label="Nội dung hợp tác chính"
                 >
                     {getFieldDecorator('main_cooperation', {
-                        initialValue: defaultMain.main_cooperation
+                        initialValue: defaultMain,
+                        rules: [{
+                            required: true,
+                            message: 'Chưa có nội dung hợp tác chính!'
+                        }]
                     })
 
                         (

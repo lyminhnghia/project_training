@@ -115,8 +115,17 @@ const CooperationTable = () => {
         }, {
             title:"Nội dung hợp tác chính",
             width:"20%",
-            dataIndex:"main_cooperations[0].main_cooperation",
-            key:"main_cooperation"
+            dataIndex:"main_cooperations",
+            key:"main_cooperation",
+            render: (main_cooperations) => {
+                return <>
+                    {main_cooperations.map(main => (
+                        <Tag color="blue" key={main.main_cooperation}>
+                            {main.main_cooperation}
+                        </Tag>
+                    ))}
+                </>
+            }
         }, {
             title:"Ngày ký",
             width:"10%",
@@ -159,7 +168,16 @@ const CooperationTable = () => {
     const columnsShare = [
         {
             title: 'Nội dung hợp tác chính',
-            dataIndex: 'main_cooperations[0].main_cooperation'
+            dataIndex: 'main_cooperations', 
+            render: (main_cooperations) => {
+                return <>
+                    {main_cooperations.map(main => (
+                        <Tag color="blue" key={main.main_cooperation}>
+                            {main.main_cooperation}
+                        </Tag>
+                    ))}
+                </>
+            }
         }, {
             title: 'Người ký',
             dataIndex: 'member_signs',

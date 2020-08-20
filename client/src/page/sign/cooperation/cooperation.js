@@ -246,7 +246,12 @@ const Cooperation = (props) => {
                 <Form.Item
                     label="Nội dung hợp tác chính"
                 >
-                    {getFieldDecorator('main_cooperation')(
+                    {getFieldDecorator('main_cooperation', {
+                        rules: [{
+                            required: true,
+                            message: 'Chưa chọn người ký!'
+                        }]
+                    })(
                         <Input placeholder="Nội dung hợp tác chính" ></Input>
                     )}
                 </Form.Item>
